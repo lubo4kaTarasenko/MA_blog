@@ -5,5 +5,5 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
-  scope :published, -> {where.not(published_at: nil)}
+  scope :published, -> { where.not(published_at: nil) }
 end

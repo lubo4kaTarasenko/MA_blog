@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :username, presence: true
 
   scope :adult, -> { where('birthday <= ?', 18.years.ago) }
-  
+
   def full_name
     "#{first_name} #{last_name} "
   end
@@ -22,5 +22,4 @@ class User < ApplicationRecord
   def adult?
     18.years.ago >= birthday
   end
-
 end
