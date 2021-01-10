@@ -10,39 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_110_090_831) do
+ActiveRecord::Schema.define(version: 2021_01_10_092317) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'images', force: :cascade do |t|
-    t.string 'url'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'imageable_type'
-    t.bigint 'imageable_id'
-    t.index %w[imageable_type imageable_id], name: 'index_images_on_imageable'
+  create_table "images", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "imageable_type"
+    t.bigint "imageable_id"
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
   end
 
-  create_table 'posts', force: :cascade do |t|
-    t.string 'title'
-    t.text 'body'
-    t.datetime 'published_at'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'user_id'
-    t.index ['user_id'], name: 'index_posts_on_user_id'
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.string 'username'
-    t.string 'email'
-    t.string 'password_digest'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.datetime 'birthday'
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "birthday"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key 'posts', 'users'
+  add_foreign_key "posts", "users"
 end
