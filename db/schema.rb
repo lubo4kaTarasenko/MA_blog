@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_092317) do
+ActiveRecord::Schema.define(version: 2021_01_27_133305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.string "group_type"
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_groups_on_name", unique: true
+  end
 
   create_table "images", force: :cascade do |t|
     t.string "url"
@@ -22,6 +31,17 @@ ActiveRecord::Schema.define(version: 2021_01_10_092317) do
     t.string "imageable_type"
     t.bigint "imageable_id"
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -37,15 +57,16 @@ ActiveRecord::Schema.define(version: 2021_01_10_092317) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "username"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "birthday"
+    t.json "personal_data"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "posts", "users"
 end
