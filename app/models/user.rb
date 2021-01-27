@@ -21,7 +21,4 @@ class User < ApplicationRecord
     "#{first_name} #{last_name} "
   end
 
-  def adult?
-    18.years.ago >= birthday
-  end
 end
