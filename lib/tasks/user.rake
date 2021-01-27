@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 namespace :user do
   desc "USER_IMPORT"
@@ -6,9 +7,19 @@ namespace :user do
     path = ENV['path']
     users = []
     headers = nil
-    CSV.foreach("users.csv", headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       headers ||= row.headers
       users << row
+    end
+
+    users_attributes = users.map(&:to_h)
+    users_attributes.each do | user | 
+      existing_user = User.find_by(id: user[:id])
+      if existing_user
+        existing_user.update(user)
+      else
+        new_user = User.new(user).save(validate: false)
+      end
     end
 
   end
