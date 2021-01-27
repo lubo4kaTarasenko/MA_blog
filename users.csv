@@ -1,0 +1,3 @@
+id,first_name,last_name,email,password_digest,created_at,updated_at,birthday,personal_data
+1,,,test@test.test,$2a$12$cxAnUxQE0fYBvdC0nJep3.H2VHe6tYdxHHhn4t1.lUs8ouDG9kIO.,2021-01-10 09:34:19 UTC,2021-01-10 09:36:49 UTC,1990-01-18 00:00:00 UTC,
+2,oleg,dublOleg,oleg@oleg.oleg,$2a$12$CRvioFqoMKQU0fF5FlkV1OU8QWTbLxVfhaBmWsNR8fOQRONZrirX.,2021-01-27 14:35:09 UTC,2021-01-27 14:35:09 UTC,,

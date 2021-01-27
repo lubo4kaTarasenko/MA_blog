@@ -13,7 +13,7 @@ class User < ApplicationRecord
     minimum: 5, maximum: 50
   }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
-  validates :username, presence: true, uniqueness: true
+ # validates :username, presence: true, uniqueness: true
 
   scope :adult, -> { where('birthday <= ?', 18.years.ago) }
 
