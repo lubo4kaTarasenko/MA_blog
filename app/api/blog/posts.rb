@@ -3,7 +3,11 @@ class Blog::Posts < Grape::API
   namespace :v1 do
 
     get do
-      Post.published.includes(:images)
+      Post.published.includes(:images).map do |post|
+        post.attributes.merge(
+          images: post.images.map(&:url)
+        )
+      end
     end
 
     get ':user_id/:post_id' do
