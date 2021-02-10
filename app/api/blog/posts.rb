@@ -1,11 +1,30 @@
 class Blog::Posts < Grape::API
 
-  namespase :v1 do
+  namespace :v1 do
 
-    params do
-      requires :id, type: Integer
-      optional :email, type: String
+    get do
+      Post.published.includes(:images)
     end
 
+    get ':user_id/:post_id' do
+      Post.find_by(id: params[:post_id], user_id: params[:user_id])
+    end
+
+    post do
+      Post.create(params)
+    end
+
+    params do
+      requires :post_id, type: Integer
+      requires :user_id, type: Integer
+    end
+    
+    # put ':user_id/:post_id' do
+    #   Post.find_by(id: params[:post_id], user_id: params[:user_id]).update(params)
+    # end
+
+    delete ':user_id/:post_id' do
+      Post.find_by(id: params[:post_id], user_id: params[:user_id]).destroy
+    end
   end
 end

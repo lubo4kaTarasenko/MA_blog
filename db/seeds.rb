@@ -8,19 +8,20 @@
 
 require 'faker'
 
- 10.times do
-    User.create( {
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: Faker::Internet.email,
-      password: '1234567890'
-    })
- end
- users = User.all.map(&:id)
- 50.times do
-    Post.create( {
-      title: Faker::Lorem.word,
-      body: Faker::Lorem.paragraphs,
-      user_id: users.sample
-    })
-  end
+10.times do
+  User.create( {
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: '1234567890'
+  })
+end
+users = User.all.map(&:id)
+50.times do
+  Post.create( {
+    title: Faker::Lorem.word,
+    body: Faker::Lorem.paragraphs,
+    user_id: users.sample
+  })
+  
+end
