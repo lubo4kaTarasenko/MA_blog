@@ -19,9 +19,12 @@ class Blog::Posts < Grape::API
       requires :user_id, type: Integer
     end
     
-    # put ':user_id/:post_id' do
-    #   Post.find_by(id: params[:post_id], user_id: params[:user_id]).update(params)
-    # end
+    put ':user_id/:post_id' do
+      Post.find_by(id: params[:post_id], user_id: params[:user_id]).update(
+        body: params[:body],
+        title: params[:title]
+      )
+    end
 
     delete ':user_id/:post_id' do
       Post.find_by(id: params[:post_id], user_id: params[:user_id]).destroy
