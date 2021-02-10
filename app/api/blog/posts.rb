@@ -14,6 +14,11 @@ class Blog::Posts < Grape::API
       Post.create(params)
     end
 
+    post ':user_id/:post_id/image' do
+      post = Post.find_by(id: params[:post_id], user_id: params[:user_id])
+      post.images.create(url: params[:url])
+    end
+
     params do
       requires :post_id, type: Integer
       requires :user_id, type: Integer
