@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :posts, dependent: :destroy  
+  has_many :posts, dependent: :destroy
   has_many :images, as: :imageable
   has_many :memberships
   has_many :groups, through: :memberships
@@ -13,12 +13,11 @@ class User < ApplicationRecord
     minimum: 5, maximum: 50
   }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
- # validates :username, presence: true, uniqueness: true
+  # validates :username, presence: true, uniqueness: true
 
   scope :adult, -> { where('birthday <= ?', 18.years.ago) }
 
   def full_name
     "#{first_name} #{last_name} "
   end
-
 end
