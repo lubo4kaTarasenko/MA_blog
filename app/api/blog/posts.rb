@@ -33,7 +33,7 @@ class Blog::Posts < Grape::API
       post.update(
         body: params[:body],
         title: params[:title],
-        published_at: (params[:publish] ? Date.today : post.published_at)
+        published_at: (params[:publish] ? Date.today : nil)
       )
     end
 
